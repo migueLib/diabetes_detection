@@ -12,6 +12,7 @@ from src.batch_summary import batch_summary
 def test_phase(model, model_path, dataloader, device, logger=None):
     all_labels = list()
     all_output = list()
+    results = dict()
     
     # Load moodel weights
     model.load_state_dict(torch.load(model_path))
@@ -42,13 +43,12 @@ def test_phase(model, model_path, dataloader, device, logger=None):
     all_predicted = all_predicted.tolist()
     
     # Calculate AUC 
-    auc = roc_auc_score(all_labels, all_predicted)
+    #auc = roc_auc_score(all_labels, all_predicted)
 
     results = {
         "test_labels": all_labels,
         "test_outputs": all_output,
-        "test_predicted": all_predicted,
-        "test_auc": auc
+        "test_predicted": all_predicted
     }
     
     return results
